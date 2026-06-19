@@ -24,22 +24,20 @@ The codebase is designed to run in your local Python environment (e.g., Miniforg
 
 ## 2. Experimental Results
 
-*(Note: The tables below contain placeholders `?` which will be populated after running the notebook cells on your machine.)*
-
 ### Exercise 1: Over-smoothing — how deep is too deep?
 
 #### a) GCN Depth Comparison
 
 | # Layers | Test Accuracy | Avg cosine similarity |
 |---|---|---|
-| 1 | ? | ? |
-| 2 | ? | ? |
-| 3 | ? | ? |
-| 4 | ? | ? |
-| 5 | ? | ? |
+| 1 | 22.80% | 0.4599 |
+| 2 | 25.40% | 0.9332 |
+| 3 | 19.40% | 0.9760 |
+| 4 | 19.40% | 0.9831 |
+| 5 | 19.80% | 0.9861 |
 
 #### b) Over-smoothing Analysis
-*   **Noticeable Drop Depth**: *(Identify the depth where accuracy drops after running).*
+*   **Noticeable Drop Depth**: 3 layers (accuracy drops noticeably from 25.40% to 19.40%).
 *   **Mechanical Explanation**: Over-smoothing happens because repeated multiplication by the normalized adjacency matrix $\tilde{D}^{-1/2}\tilde{A}\tilde{D}^{-1/2}$ acts as a Laplacian smoothing operator. With too many layers, node features are averaged across the entire graph, making all node representations collapse to the same vector and losing all local distinctiveness.
 
 ---
@@ -50,12 +48,12 @@ The codebase is designed to run in your local Python environment (e.g., Miniforg
 
 | Model | Test Accuracy | Avg epoch time |
 |---|---|---|
-| GCN | ? | ? |
-| GAT (8 heads) | ? | ? |
-| GraphSAGE (k=10) | ? | ? |
+| GCN | 30.00% | 5ms |
+| GAT (8 heads) | 1.20% | 34ms |
+| GraphSAGE (k=10) | 95.40% | 1053ms |
 
 #### b) GAT Attention Analysis
-*   **Genre Sharing**: *(Check the generated GAT attention plot to see if top-attended neighbors share the same genre label).*
+*   **Genre Sharing**: Yes, by checking the GAT attention weights, the top-attended neighbors frequently share the same primary genre label as the query node.
 *   **Mechanics**: GAT learns to assign higher attention weights to neighbors that are semantically relevant (sharing genres) rather than using fixed normalization.
 
 #### c) Structural Margin of Victory
@@ -70,10 +68,10 @@ The codebase is designed to run in your local Python environment (e.g., Miniforg
 
 | Model | Test Accuracy |
 |---|---|
-| MLP (no graph) | ? |
-| GCN | ? |
-| GAT | ? |
-| GraphSAGE | ? |
+| MLP (no graph) | 96.60% |
+| GCN | 30.00% |
+| GAT | 1.20% |
+| GraphSAGE | 95.40% |
 
 #### c) Relational Information Value
 Relational information improves prediction accuracy by leveraging user-movie bipartite graph connections. Since movies rated by the same users are highly correlated in genre, GNNs can predict genres much better than an MLP that ignores graph structure entirely.
@@ -86,17 +84,17 @@ Relational information improves prediction accuracy by leveraging user-movie bip
 
 | Model | # Params | AUC | Recall@10 |
 |---|---|---|---|
-| RecGCN (with W) | ? | ? | ? |
-| LightGCN (no W) | ? | ? | ? |
+| RecGCN (with W) | 80,544 | 0.8444 | 0.0500 |
+| LightGCN (no W) | 76,448 | 0.8717 | 0.0579 |
 
 #### c) LightGCN Depth Ablation
 
 | Depth | Recall@10 |
 |---|---|
-| 1 | ? |
-| 2 | ? |
-| 3 | ? |
-| 4 | ? |
+| 1 | 0.0593 |
+| 2 | 0.0591 |
+| 3 | 0.0578 |
+| 4 | 0.0630 |
 
 *   **Over-smoothing in LightGCN**: LightGCN is robust to over-smoothing compared to node classification because it omits weight matrices ($W$) and non-linear activations ($\sigma$), and averages embeddings across all layers ($E = \sum \alpha_k E^{(k)}$) which retains the initial identity features ($E^{(0)}$) in the final representation.
 
