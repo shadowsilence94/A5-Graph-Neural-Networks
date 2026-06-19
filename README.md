@@ -12,13 +12,13 @@ The codebase is designed to run in your local Python environment (e.g., Miniforg
 *   Hardware acceleration: Automatically selects `cuda` or Apple Silicon `mps` if available, otherwise falls back to `cpu`.
 
 ### How to Run
-1. Open the Jupyter Notebook [A5-Graph-Neural-Networks.ipynb](file:///Users/htutkoko/Library/CloudStorage/GoogleDrive-htutkoko1994@gmail.com/My%20Drive/Job in progress/Deep%20Learning/A5/repo/A5-Graph-Neural-Networks.ipynb).
+1. Open the Jupyter Notebook [A5-Graph-Neural-Networks.ipynb](A5-Graph-Neural-Networks.ipynb).
 2. Run all cells sequentially.
 3. Running the notebook will:
     *   Download the MovieLens-100k dataset.
     *   Train and evaluate GCN, GAT, and GraphSAGE models.
     *   Run the over-smoothing, MLP baseline, and LightGCN exercises.
-    *   Automatically save all plots and visualizations to the [figures/](file:///Users/htutkoko/Library/CloudStorage/GoogleDrive-htutkoko1994@gmail.com/My%20Drive/Job%20in%20progress/Deep%20Learning/A5/repo/figures/) directory.
+    *   Automatically save all plots and visualizations to the [figures/](figures/) directory.
 
 ---
 
